@@ -1,0 +1,2 @@
+# DSA-Practice
+Collection of Data Structures &amp; Algorithms problems solved in Java, covering Arrays, Strings, Recursion, Sorting, Searching, Hashing, and Dynamic Programming. Solutions include clear explanations and optimized approaches for interview preparation.
