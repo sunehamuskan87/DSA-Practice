@@ -17,3 +17,13 @@ class Solution {
         return arr;
     }
 }
+
+/*************************************************************************/
+Brute - Nested loops.
+TC:O(n^2) SC: O(1)
+
+Better - HashMap.
+TC: O(n) --> Array Traversal, SC: O(n) --> space for map storage.
+
+Optimal - Two Pointer.
+TC: O(n) for traversal and O(n log n) for sorting, so TC: O(n log n) SC: O(1)
