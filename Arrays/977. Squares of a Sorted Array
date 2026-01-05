@@ -1,22 +1,27 @@
+Brute: squaring each array elements and sorting at the end -> O(n log n)
+
+Optimal:
 class Solution {
     public int[] sortedSquares(int[] nums) {
-        int n = nums.length;
-        int[] arr = new int[n];
-        int position = n-1;
-        int left = 0;
-        int right = n-1;
-        while(left<=right){
-            if(Math.abs(nums[left]) > Math.abs(nums[right])){
-                arr[position] = nums[left]*nums[left];
-                left++;
-                position--;
+        int[] ans = new int[nums.length];
+        
+        int idx = ans.length-1;
+        int i = 0;
+        int j = nums.length-1;
+        
+        while(i<=j){
+            int left = Math.abs(nums[i]);
+            int right = Math.abs(nums[j]);
+            
+            if(left > right){
+                ans[idx--] = left*left;
+                i++;
             }
             else{
-                arr[position] = nums[right]*nums[right];
-                right--;
-                position--;
+                ans[idx--] = right*right;
+                j--;
             }
         }
-        return arr;
+    return ans;
     }
 }
