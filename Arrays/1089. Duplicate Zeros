@@ -1,0 +1,32 @@
+1. Keeping an imaginary array in mind after doubling each zeros
+2. count total zeros
+3. copy each orig array i pointer values to same array using j pointer from backside once but with a condition (j<n) beacuse that is only portion we need to return and whenever 0 comes adding it twice and decrementing j--, j--, i--
+
+class Solution {
+    public void duplicateZeros(int[] arr) {
+        int n = arr.length;
+        int zeros = 0;
+        for(int i : arr){
+            if(i == 0) zeros++;
+        }
+        
+        int i = n - 1;
+        int j = n + zeros - 1;
+        
+        while(i>=0){
+            if(j < n){
+                arr[j] = arr[i];
+            }
+            j--;
+            
+            if(arr[i] == 0){
+                if(j < n){
+                    arr[j] = arr[i];
+                }
+                j--;
+            }
+            i--;
+        }
+    }
+}
+
