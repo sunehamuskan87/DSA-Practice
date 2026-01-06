@@ -1,0 +1,40 @@
+class Solution {
+    //Brute
+    // public int majorityElement(int[] nums) {
+    //     HashMap<Integer, Integer> map = new HashMap<>();
+
+    //     for(int num : nums){
+    //         map.put(num, map.getOrDefault(num, 0)+1);
+    //     }
+    //     int n = nums.length/2;
+
+    //     for(Map.Entry<Integer, Integer> e : map.entrySet()){
+    //         if(e.getValue() > n) return e.getKey();
+    //     }
+    //     return -1;
+    // }
+
+    //Moore's Algo optimal
+    public int majorityElement(int[] nums) {
+        int count = 0, ele = 0, mejorityCount = 0;
+
+        for(int i=0;i<nums.length;i++){
+            if(count == 0){
+                ele = nums[i];
+                count++;
+            }
+            else if(ele == nums[i]){
+                count++;
+            }
+            else{
+                count--;
+            }
+        }
+
+        for(int i=0;i<nums.length;i++){
+            if(ele == nums[i]) mejorityCount++;
+        }
+        if(mejorityCount > nums.length/2) return ele;
+        return -1;
+    }
+}
