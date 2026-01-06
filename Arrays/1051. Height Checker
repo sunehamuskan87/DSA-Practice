@@ -1,0 +1,47 @@
+class Solution {
+       //brute
+//     public int heightChecker(int[] heights) {
+//         int[] copy = new int[heights.length];
+//         int count = 0;
+        
+//         for(int i=0;i<heights.length;i++){
+//             copy[i] = heights[i];
+//         }
+//         Arrays.sort(copy);
+        
+//         for(int i=0;i<heights.length;i++){
+//             if(heights[i]!=copy[i]){
+//                 count++;
+//             }
+//         }
+//         return count;
+//     }
+    
+      //optimal
+    public int heightChecker(int[] heights) {
+        int n = heights.length;
+        int maxi = -1;
+        
+        for(int i=0;i<n;i++){  //to find the max ele to create the freq array of it
+            if(heights[i] > maxi) maxi = heights[i];
+        }
+        int[] freq = new int[maxi+1];
+        
+        for(int i=0;i<n;i++){  //calculating freq of orig array
+            freq[heights[i]]++;
+        }
+        
+        int idx = 0; //pointing to the orig array
+        int count = 0; // to store the result
+        for(int i=1;i<freq.length;i++){
+            while(freq[i] > 0){
+                if(i != heights[idx]){
+                    count++;
+                }
+                idx++;
+                freq[i]--;
+            }
+        }
+        return count;
+    }
+}
