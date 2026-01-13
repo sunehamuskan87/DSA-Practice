@@ -1,0 +1,95 @@
+First if the sum is 0, put all the ele to the list, sort the list and add in set to avoid the deuplicates, and put all the set values into list and return it
+
+class Solution {
+    //Brute
+    // public List<List<Integer>> threeSum(int[] nums) {
+    //     List<List<Integer>> result = new ArrayList<>();
+    //     HashSet<List<Integer>> sset = new HashSet<>();
+
+    //     for(int i=0;i<nums.length;i++){
+    //         for(int j=i+1;j<nums.length;j++){
+    //             for(int k=j+1;k<nums.length;k++){
+    //                 int sum = nums[i] + nums[j] + nums[k];
+    //                 if(sum == 0){
+    //                     List<Integer> arr = Arrays.asList(nums[i], nums[j], nums[k]);
+    //                     Collections.sort(arr);  //Sort triplet so [1, -1, 0] and [0, 1, -1] become same
+    //                     sset.add(arr);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     for(List<Integer> list : sset){
+    //         result.add(list);
+    //     }
+    //     return result;
+    // }
+}
+
+🔸 Time & Space
+Time: O(n³)
+Space: O(set size)
+❌ Too slow for large input
+
+//Better -- using formula
+We try to find the third number
+int num = -(nums[i]+nums[j]);
+🔹 Explanation We want:
+nums[i] + nums[j] + num = 0
+So,
+num = -(nums[i] + nums[j])
+This is the required third number.
+
+public List<List<Integer>> threeSum(int[] nums) {
+        HashSet<List<Integer>> result = new HashSet<>();
+        int n = nums.length;
+
+        for(int i=0;i<n;i++){
+            HashSet<Integer> sset = new HashSet<>();
+            for(int j=i+1;j<n;j++){
+                int num = -(nums[i]+nums[j]);
+                if(sset.contains(num)){
+                    List<Integer> arr = Arrays.asList(nums[i], nums[j], num);
+                    Collections.sort(arr);
+                    result.add(arr);
+                }
+
+                sset.add(nums[j]);
+            }
+        }
+        return new ArrayList<>(result);
+    }
+⏱️ Complexity
+Time: O(n²)
+Space: O(n) (HashSet)
+
+//Optimal
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        int n = nums.length;
+
+        for(int i=0;i<n;i++){
+            if(i>0 && nums[i] == nums[i-1]) continue;
+            int j = i+1;
+            int k = n-1;
+
+            while(j<k){
+                int sum = nums[i] + nums[j] + nums[k];
+                if(sum == 0){
+                    result.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    j++;
+                    k--;
+                    while(j<k && nums[j] == nums[j-1]) j++;
+                    while(j<k && nums[k] == nums[k+1]) k--;
+                }
+                else if(sum > 0){
+                    k--;
+                }
+                else{
+                    j++;
+                }
+            }
+        }
+        return result;
+    }
+}
