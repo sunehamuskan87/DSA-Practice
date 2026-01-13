@@ -1,0 +1,41 @@
+// User function Template for Java
+
+class Solution {
+    //Brute - Time Limit Exceed
+    // long countTriplets(int n, int sum, long arr[]) {
+    //     int count = 0;
+    //     for(int i=0;i<n;i++){
+    //         for(int j=i+1;j<n;j++){
+    //             for(int k=j+1;k<n;k++){
+    //                 long total = arr[i]+arr[j]+arr[k];
+    //                 if(total < sum){
+    //                     count++;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return count;
+    // }
+    
+    //Optimal
+    long countTriplets(int n, int sum, long arr[]) {
+        Arrays.sort(arr);
+        int ans = 0;
+        
+        for(int i=0;i<n-2;i++){
+            int left = i+1;
+            int right = n-1;
+            while(left<right){
+                long total = arr[i]+arr[left]+arr[right];
+                if(total >= sum){
+                    right--;
+                }
+                else{
+                    ans = ans + right - left;
+                    left++;
+                }
+            }
+        }
+        return ans;
+    }
+}
