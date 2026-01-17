@@ -1,0 +1,44 @@
+// User function Template for Java
+
+class Solution {
+    //Brute
+    // static void rotateArr(int arr[], int d) {
+    //     int n = arr.length;
+    //     d = d%n;
+        
+    //     ArrayList<Integer> temp = new ArrayList<>();
+    //     for(int i=0;i<d;i++){
+    //         temp.add(arr[i]);
+    //     }
+        
+    //     for(int i=d;i<n;i++){
+    //         arr[i-d] = arr[i];
+    //     }
+        
+    //     int idx = 0;
+    //     for(int i=n-d;i<n;i++){
+    //         arr[i] = temp.get(idx++);
+    //     }
+    // }
+    
+    //optimal
+    static void rotateArr(int arr[], int d) {
+        int n = arr.length;
+        d = d%n;
+        
+        swapeElements(arr, 0, d-1);
+        swapeElements(arr, d, n-1);
+        swapeElements(arr, 0, n-1);
+    }
+    
+    static int[] swapeElements(int arr[], int l, int r){
+        while(l<r){
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+            l++;
+            r--;
+        }
+        return arr;
+    }
+}
