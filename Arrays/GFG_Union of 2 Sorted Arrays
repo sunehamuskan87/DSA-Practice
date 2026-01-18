@@ -1,0 +1,53 @@
+class Solution {
+    //brute
+    // public static ArrayList<Integer> findUnion(int a[], int b[]) {
+    //     TreeSet<Integer> sset = new TreeSet<>();
+    //     ArrayList<Integer> arr = new ArrayList<>();
+        
+    //     for(int val : a){
+    //         sset.add(val);
+    //     }
+    //     for(int val : b){
+    //         sset.add(val);
+    //     }
+    //     for(int it : sset){
+    //         arr.add(it);
+    //     }
+    //     return arr;
+    // }
+    
+    //optimal
+    public static ArrayList<Integer> findUnion(int a[], int b[]) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int m = a.length, n = b.length;
+        int i = 0, j = 0;
+        
+        while(i<m && j<n){
+            if(a[i] <= b[j]){
+                if(result.size() == 0 || a[i] != result.get(result.size()-1)){
+                    result.add(a[i]);
+                }
+                i++;
+            }
+            else{
+                if(result.size() == 0 || b[j] != result.get(result.size()-1)){
+                    result.add(b[j]);
+                }
+                j++;
+            }
+        }
+        while(i<m){
+            if(a[i] != result.get(result.size()-1)){
+                result.add(a[i]);
+            }
+            i++;
+        }
+        while(j<n){
+            if(b[j] != result.get(result.size()-1)){
+                result.add(b[j]);
+            }
+            j++;
+        }
+        return result;
+    }
+}
