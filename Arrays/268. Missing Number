@@ -1,0 +1,54 @@
+class Solution {
+    //brute
+    // public int missingNumber(int[] nums) {
+    //     int n = nums.length;
+    //     for(int i=0;i<=n;i++){
+    //         int flag = 0;
+    //         for(int j=0;j<n;j++){
+    //             if(nums[j]==i){
+    //                 flag = 1;
+    //                 break;
+    //             }
+    //         }
+    //         if(flag == 0) return i;
+    //     }
+    //     return -1;
+    // }
+
+    //better
+    // public int missingNumber(int[] nums) {
+    //     int n = nums.length;
+    //     int[] freq = new int[n+1];
+
+    //     for(int i=0;i<n;i++){
+    //         freq[nums[i]]++;
+    //     }
+    //     for(int i=0;i<freq.length;i++){
+    //         if(freq[i] == 0) return i;
+    //     }
+    //     return -1;
+    // }
+
+    //opt-1
+    // public int missingNumber(int[] nums) {
+    //     int n = nums.length;
+    //     int sum = n*(n+1)/2;
+    //     int numsTotal = 0;
+    //     for(int i=0;i<n;i++){
+    //         numsTotal+=nums[i];
+    //     }
+    //     return sum - numsTotal;
+    // }
+
+    //opt-2 --> nums = [3,0,1]
+    public int missingNumber(int[] nums) {
+        int xor1 = 0, xor2 = 0;
+        int n = nums.length;
+        for(int i=0;i<n;i++){
+            xor1 = xor1 ^ nums[i];  // 3 ^ 0 ^ 1
+            xor2 = xor2 ^ i;        // 0 ^ 1 ^ 2
+        }
+        xor2 = xor2 ^ n;            // 0 ^ 1 ^ 2 ^ 3 ->adding nth number
+        return xor1 ^ xor2;         // after xoring return remaing num
+    }
+}
