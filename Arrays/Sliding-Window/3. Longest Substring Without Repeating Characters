@@ -1,0 +1,46 @@
+Brute --> Can use freq array of 256 charcters instead of set since characters are always fixed sized array
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxLen = 0;
+        for(int i=0;i<s.length();i++){
+            HashSet<Character> sset = new HashSet<>();
+            for(int j=i;j<s.length();j++){
+                if(sset.contains(s.charAt(j))){
+                    break;
+                }
+                sset.add(s.charAt(j));
+                maxLen = Math.max(maxLen, j-i+1);
+            }
+        }
+        return maxLen;
+    }
+}
+
+//opt - 1 (using while inside if) 
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int l = 0, r = 0;
+        int maxLen = 0;
+
+        while(r<s.length()){
+            if(set.contains(s.charAt(r))){
+                while(set.contains(s.charAt(r))){
+                    set.remove(s.charAt(l));
+                    l++;
+                }
+            }
+            set.add(s.charAt(r));
+            maxLen = Math.max(maxLen, r-l+1);
+            r++;
+        }
+        return maxLen;
+    }
+}
+TC O(n) + O(n) at worst case
+SC O(n) - for storing 256 char in set
+
+//opt -2 (without using inner while loop but instead just do if-else
+TC O(n)
+SC O(n)
