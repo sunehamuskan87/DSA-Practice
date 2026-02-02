@@ -1,0 +1,65 @@
+Brute
+class Solution {
+    public int totalFruit(int[] fruits) {
+        int maxLen = 0;
+        for(int i=0;i<fruits.length;i++){
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for(int j=i;j<fruits.length;j++){
+                map.put(fruits[j], map.getOrDefault(fruits[i],0)+1);
+                if(map.size()>2){
+                    break;
+                }
+                maxLen = Math.max(maxLen, j-i+1);
+            }
+        } 
+        return maxLen;
+    }
+}
+
+Better
+class Solution {
+    public int totalFruit(int[] fruits) {
+        int n = fruits.length;
+        int maxLen=0;
+        int l = 0, r = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        while(r<n){
+            map.put(fruits[r], map.getOrDefault(fruits[r],0)+1);
+            if(map.size()>2){                                     ----> Can use while or if
+                int freq = map.get(fruits[l]);
+                freq--;
+                map.put(fruits[l], freq);
+                if(freq == 0){
+                    map.remove(fruits[l]);
+                }
+                l++;
+            }
+            maxLen = Math.max(maxLen, r-l+1);
+            r++;
+        }
+        return maxLen;
+    }
+}
+
+Opt
+class Solution {
+    public int totalFruit(int[] fruits) {
+        int n = fruits.length;
+        int maxLen=0;
+        int l = 0, r = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        while(r<n){
+            map.put(fruits[r], r);
+            if(map.size()>2){
+                int smallestIdx = Collections.min(map.values());
+                map.remove(fruits[smallestIdx]);
+                l = smallestIdx+1;
+            }
+            maxLen = Math.max(maxLen, r-l+1);
+            r++;
+        }
+        return maxLen;
+    }
+}
