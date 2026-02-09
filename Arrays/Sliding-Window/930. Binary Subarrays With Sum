@@ -1,0 +1,38 @@
+class Solution {
+    //brute
+    // public int numSubarraysWithSum(int[] nums, int goal) {
+    //     int total = 0;
+    //     for(int i=0;i<nums.length;i++){
+    //         int sum = 0;
+    //         for(int j=i;j<nums.length;j++){
+    //             sum+= nums[j];
+    //             if(sum == goal) total++;
+    //         }
+    //     }
+    //     return total;
+    // }
+
+    //opt
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        return calculateSum(nums, goal) - calculateSum(nums, goal-1);
+    }
+
+    public int calculateSum(int[] nums, int goal) {
+        if(goal<0) return 0;
+        int l=0, r=0, sum=0, count=0;
+        while(r<nums.length){
+            sum+= nums[r];
+            while(sum > goal){
+                if(nums[l]==1){
+                    sum-= nums[l];
+                }
+                l++;
+            }
+            if(sum<=goal){
+                count+= r-l+1;
+            }
+            r++;
+        }
+        return count;
+    }
+}
