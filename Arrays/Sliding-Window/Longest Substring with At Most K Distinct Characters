@@ -1,0 +1,50 @@
+Brute
+
+import java.util.HashMap;
+public class Solution {
+
+	public static int kDistinctChars(int k, String str) {
+		int maxLen = 0;
+		for(int i=0;i<str.length();i++){
+			HashMap<Character,Integer> mpp = new HashMap<>();
+			for(int j=i;j<str.length();j++){
+				mpp.put(str.charAt(j), mpp.getOrDefault(str.charAt(j),0)+1);
+				if(mpp.size() <= k){
+					maxLen = Math.max(maxLen, j-i+1);
+				}
+				if(mpp.size()>k) break;
+			}
+		}
+		return maxLen;
+	}
+
+}
+
+//opt
+
+public class Solution {
+
+	public static int kDistinctChars(int k, String str) {
+		int[] freq = new int[26];
+		int l=0, r=0, maxLen=0, count=0;
+
+		while(r<str.length()){
+			char ch = str.charAt(r);
+			if(freq[ch - 'a'] == 0) count++;
+			freq[ch - 'a']++;
+
+			while(count > k){
+				freq[str.charAt(l) - 'a']--;
+				if(freq[str.charAt(l)] == 0){
+					count--;
+				}
+				l++;
+			}
+			maxLen = Math.max(maxLen, r-l+1);
+			r++;
+		}
+		return maxLen;
+	}
+
+}
+
