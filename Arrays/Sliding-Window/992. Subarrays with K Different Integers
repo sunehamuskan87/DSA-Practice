@@ -1,0 +1,43 @@
+class Solution {
+    //Brute
+    // public int subarraysWithKDistinct(int[] nums, int k) {
+    //     int count = 0;
+    //     HashSet<Integer> sset = new HashSet<>();
+    //     for(int i=0;i<nums.length;i++){
+    //         sset.clear();
+    //         for(int j=i;j<nums.length;j++){
+    //             sset.add(nums[j]);
+    //             if(sset.size() == k) count++;
+    //             else if(sset.size()>k) break;
+    //         }
+    //     }
+    //     return count;
+    // }
+
+    //opt
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        int a = helper(nums, k);
+        int b = helper(nums, k-1);
+        return a-b;
+    }
+    public int helper(int[] nums, int k) {
+        if(k<0) return 0;
+        int l=0, r=0, count=0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        while(r<nums.length){
+            map.put(nums[r], map.getOrDefault(nums[r],0)+1);
+            while(map.size() > k){
+                int n = map.get(nums[l]);
+                n--;
+                map.put(nums[l], n);
+                if(n==0) map.remove(nums[l]);
+                l++;
+            }
+            if(map.size() <= k){
+                count += r-l+1;
+            }
+            r++;
+        }
+        return count;
+    }
+}
