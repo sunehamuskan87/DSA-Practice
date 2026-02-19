@@ -27,7 +27,7 @@ class Solution {
             int right = n-1;
             while(left<right){
                 int sum = nums[i]+nums[left]+nums[right];
-                if(Math.abs(sum - target) < Math.abs(closestSum - target)){
+                if(Math.abs((long)sum - target) < Math.abs((long)closestSum - target)){   -->use long to avoid integer overflow
                     closestSum = sum;
                 }
                 if(sum < target){
